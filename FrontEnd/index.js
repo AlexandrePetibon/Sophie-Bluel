@@ -1,5 +1,6 @@
-const gallery = document.querySelector('#gallery');
+function galleryImg () {
 
+const gallery = document.querySelector('#gallery');
 fetch("http://localhost:5678/api/works")
   .then(response => response.json())
   .then(data => {
@@ -16,7 +17,9 @@ fetch("http://localhost:5678/api/works")
     console.log(data)
   })
   .catch(error => console.error(error));
+}
 
+galleryImg ()
   
   const buttonTous = document.querySelector('#buttonG');
   const buttonT = document.createElement('button');
@@ -28,42 +31,63 @@ fetch("http://localhost:5678/api/works")
   buttonTous.appendChild(buttonT);
   
 
-  const buttonNames = ['Objets', 'Appartements', 'Hôtels & Restaurants'];
-  const buttonIDs = ['buttonO', 'buttonA', 'buttonH'];
-  const categoryIDs = [1, 2, 3];
   const buttonParent = document.querySelector('#buttonG');
-  
-  for (let i = 0; i < buttonNames.length; i++) {
-    const button = document.createElement('button');
-    button.innerText = buttonNames[i];
-    button.setAttribute('id', 'button', buttonIDs[i]);
-    button.addEventListener('click', () => {
-      if (categoryIDs[i] === 1) {
-        fetch(`http://localhost:5678/api/categories`)
-          .then(response => response.json())
-          .then(data => {
-            const filterData = data.filter(category => category.id === 1);
-            console.log(filterData);
-          })
-          .catch(error => console.error(error));
-      } else if (categoryIDs[i] === 2) {
-        fetch(`http://localhost:5678/api/categories`)
-          .then(response => response.json())
-          .then(data => {
-            const filterData = data.filter(category => category.id === 2);
-            console.log(filterData);
-          })
-          .catch(error => console.error(error));
-      } else if (categoryIDs[i] === 3) {
-        fetch(`http://localhost:5678/api/categories`)
-          .then(response => response.json())
-          .then(data => {
-            const filterData = data.filter(category => category.id === 3);
-            console.log(filterData);
-          })
-          .catch(error => console.error(error));
-      }
-      console.log('Vous avez cliqué sur le bouton');
-    });
-    buttonParent.appendChild(button);
+
+  function filter() {
+    fetch("http://localhost:5678/api/categories")
+      .then(response => response.json())
+      .then(data => {
+        for (let i = 0; i < data.length; i++) {
+          const button = document.createElement('button');
+          button.innerText = data[i].name;
+          button.setAttribute('id', 'button');
+          buttonParent.appendChild(button); 
+        }
+      });
   }
+  
+  filter();
+
+
+
+fetch(`http://localhost:5678/api/works`)
+.then(response => response.json())
+.then(data => {
+  if () {
+
+  }
+}) 
+    
+    
+   
+   
+  {button.addEventListener('click', () => {
+    if (categoryIDs[i] === 1) {
+      fetch(`http://localhost:5678/api/categories`)
+        .then(response => response.json())
+        .then(data => {
+          const filterData = data.filter(category => category.id === 1);
+          console.log(filterData);
+        })
+        .catch(error => console.error(error));
+    } else if (categoryIDs[i] === 2) {
+      fetch(`http://localhost:5678/api/categories`)
+        .then(response => response.json())
+        .then(data => {
+          const filterData = data.filter(category => category.id === 2);
+          console.log(filterData);
+        })
+        .catch(error => console.error(error));
+    } else if (categoryIDs[i] === 3) {
+      fetch(`http://localhost:5678/api/categories`)
+        .then(response => response.json())
+        .then(data => {
+          const filterData = data.filter(category => category.id === 3);
+          console.log(filterData);
+        })
+        .catch(error => console.error(error));
+    }
+    console.log('Vous avez cliqué sur le bouton');
+  });
+  buttonParent.appendChild(button);
+}
