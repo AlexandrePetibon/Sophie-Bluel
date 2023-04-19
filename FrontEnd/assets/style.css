@@ -187,3 +187,36 @@ footer nav ul {
 	margin: 2em
 }
 
+#buttonG {
+	display: flex;
+	justify-content: space-around;
+	margin-left: 10%;
+	margin-right: 10%;
+	margin-bottom: 5%;
+	margin-top: 4%;
+}
+
+#button {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: #1D6154;
+	background-color: white;
+	width: 180px;
+	text-align: center;
+	border-radius: 60px ;
+	vertical-align: baseline;
+}
+
+#button:hover {
+	color: white;
+	background-color: #1D6154;
+}
+
+a {
+	color: black;
+	text-decoration: none;
+}
+
+.mdp {
+	text-decoration: underline;
+}
