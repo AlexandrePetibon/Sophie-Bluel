@@ -1,14 +1,16 @@
+//Etape 2 : La page de connexion
+
 const form = document.querySelector('#envoyer');
 console.log (form)
-form.addEventListener("click", (event) => {
-  event.preventDefault();
+form.addEventListener("click", (e) => {
+  e.preventDefault();
 
-  const email = document.querySelector("#email").value;
-  const password = document.querySelector("#pass").value;
-  console.log(email)
-  console.log(password)
+const email = document.querySelector("#email").value;
+const password = document.querySelector("#pass").value;
+console.log(email)
+console.log(password)
 
-  fetch("http://localhost:5678/api/users/login", {
+fetch("http://localhost:5678/api/users/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8"
