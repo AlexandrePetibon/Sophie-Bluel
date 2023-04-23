@@ -5,7 +5,7 @@ const gallery = document.querySelector('#gallery');
 const btnG = document.querySelector('#buttonG');
 const gallerieTous = document.querySelectorAll('#gallery > div');
 const btn = document.querySelectorAll('#buttonG > button');
-const btnProjet = document.querySelector('#button')
+const imgProjet = document.querySelectorAll('#gallery > div > img');
 
 //Création du bouton générique "Tous"
 const buttonT = document.createElement('button');
@@ -39,6 +39,7 @@ async function projet() {
     imgProjet.appendChild(titleSophie);
     gallery.appendChild(imgProjet);
   });
+  console.log(dataProjet)
 }
 
 async function button () {
@@ -48,28 +49,39 @@ async function button () {
     btnSite.innerText = `${btn.name}`
     btnSite.setAttribute('id', 'button');
     btnG.appendChild(btnSite)
-       }
-  );
+       });
+  console.log(dataButton)
 }
 
 async function filtreTous () {
   const dataFiltreTous = await works()
   dataFiltreTous.forEach(tous => {
       buttonT.addEventListener('click', () => {
-      gallerieTous.forEach(div => div.style.display = 'block');
+      gallerieTous
   })});
+  console.log(dataFiltreTous)
 }
 
-async function filtreTravaux () {
-  const dataFiltreTravaux = await works()
-  dataFiltreTravaux.forEach(travaux => {
-    for (let i = 0; i < dataFiltreTravaux.length; i++) 
-    btnProjet.addEventListener('click', () => {
-    if (dataFiltreTravaux.name === 'objets') {
-      btnProjet.forEach(button => button.style.display = 'block')
-    }
-    })})
-  }
+async function filtreTravaux() {
+  const dataFiltreTravaux = await works();
+  dataFiltreTravaux.forEach(objet => {
+    btn.addEventListener('click', () => {
+  
+    })
+
+
+
+  if (categoryId === 1) { 
+    btn.addEventListener('click', () => {
+    filObjet = dataFiltreTravaux.filter(obj => obj.categoryId === 1)});
+  } else if (btn === 2) {
+    filObjet = dataFiltreTravaux.filter(obj => obj.categoryId === 2);
+  } else if (btn === 3) {
+    filObjet = dataFiltreTravaux.filter(obj => obj.categoryId === 3);
+  } 
+})
+  
+}
 
 //Appel des fonctions
 projet();
