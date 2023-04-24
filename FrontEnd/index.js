@@ -65,13 +65,22 @@ async function filtreTous () {
 async function filtreTravaux() {
   const dataFiltreTravaux = await works();
   const buttonBis = await button();
-  buttonBis.forEach&&dataFiltreTravaux.forEach(objet => {
-    btn.addEventListener('click', () => {
+  const monSet = new Set(works())
+  dataFiltreTravaux.forEach(objet => {
+    btnG.addEventListener('click', () => {
       if (dataFiltreTravaux.filter(obj => obj.categoryId === 1)){
         set.prototype.add(categoryId===1)
         set.prototype.delete(categoryId!=1)
-      }})})}
-  
+}
+else if (dataFiltreTravaux.filter(obj => obj.categoryId === 2)){
+  set.prototype.add(categoryId===2)
+  set.prototype.delete(categoryId!=2)
+}
+else if (dataFiltreTravaux.filter(obj => obj.categoryId === 3)){
+  set.prototype.add(categoryId===3)
+  set.prototype.delete(categoryId!=3)
+}
+})})}
 
 
 
