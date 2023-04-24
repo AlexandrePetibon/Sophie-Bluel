@@ -22,7 +22,7 @@ fetch("http://localhost:5678/api/users/login", {
       return response.json();
     }
     else {
-      throw new Error("Mauvais e-mail et/ou mot de passe");
+      throw new Error('Erreur dans l’identifiant ou le mot de passe');
     }
   })
   .then(data => {

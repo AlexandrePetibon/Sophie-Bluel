@@ -64,28 +64,19 @@ async function filtreTous () {
 
 async function filtreTravaux() {
   const dataFiltreTravaux = await works();
-  dataFiltreTravaux.forEach(objet => {
+  const buttonBis = await button();
+  buttonBis.forEach&&dataFiltreTravaux.forEach(objet => {
     btn.addEventListener('click', () => {
+      if (dataFiltreTravaux.filter(obj => obj.categoryId === 1)){
+        set.prototype.add(categoryId===1)
+        set.prototype.delete(categoryId!=1)
+      }})})}
   
-    })
 
 
-
-  if (categoryId === 1) { 
-    btn.addEventListener('click', () => {
-    filObjet = dataFiltreTravaux.filter(obj => obj.categoryId === 1)});
-  } else if (btn === 2) {
-    filObjet = dataFiltreTravaux.filter(obj => obj.categoryId === 2);
-  } else if (btn === 3) {
-    filObjet = dataFiltreTravaux.filter(obj => obj.categoryId === 3);
-  } 
-})
-  
-}
 
 //Appel des fonctions
 projet();
-button();
 filtreTous ();
 filtreTravaux ()
 
