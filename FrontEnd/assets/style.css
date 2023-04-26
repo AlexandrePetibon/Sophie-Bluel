@@ -196,7 +196,7 @@ footer nav ul {
 	margin-top: 4%;
 }
 
-#button {
+.button {
 	font-family: 'Syne';
 	font-weight: 700;
 	color: #1D6154;
@@ -207,7 +207,7 @@ footer nav ul {
 	vertical-align: baseline;
 }
 
-#button:hover {
+.button:hover {
 	color: white;
 	background-color: #1D6154;
 }
