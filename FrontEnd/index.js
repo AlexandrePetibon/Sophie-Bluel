@@ -4,19 +4,11 @@
 const gallery = document.querySelector('#gallery');
 const btnG = document.querySelector('#buttonG');
 const gallerieTous = document.querySelectorAll('#gallery > div');
-const imgProjet = document.querySelectorAll('#gallery > div > img');
 
-
-//Création du bouton générique "Tous"
 const buttonT = document.createElement('button');
 buttonT.innerText = 'Tous';
 buttonT.setAttribute('class', 'button');
 btnG.appendChild(buttonT);
-
-const btn = document.querySelectorAll('.button');
-console.log(btn)
-
-
 
 async function button () {
   const dataButton = await categories ();
@@ -30,8 +22,12 @@ async function button () {
   console.log(dataButton)
 }
 
-const btn2 = document.querySelectorAll('.button')
-console.log(btn2)
+//Création du bouton générique "Tous"
+
+button()
+
+const btn = document.querySelector('#buttonG > button');
+ console.log(btn + button()) 
 
 //Appel de l'API
 async function works() {
@@ -91,13 +87,9 @@ async function filtreTravaux() {
         set.delete(works.categoryId!=[i])
       }})}}
  
-
-
-
-
 //Appel des fonctions
 projet();
 filtreTous ();
 filtreTravaux ()
-button()
+
 //Etape 3 : Ajout de la modale
