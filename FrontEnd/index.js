@@ -22,7 +22,7 @@ async function button() {
     btnSite.setAttribute("class", "button");
     btnG.appendChild(btnSite);
   });
-  console.log(dataButton);
+  //console.log(dataButton);
 }
 
 //Création du bouton générique "Tous"
@@ -30,7 +30,7 @@ async function button() {
 button();
 
 const btn = document.getElementsByClassName("button");
-  console.log(btn);
+//console.log(btn);
 
 //Appel de l'API
 async function works() {
@@ -38,7 +38,7 @@ async function works() {
     "http://" + window.location.hostname + ":5678/api/works"
   );
   const dataWorks = await response.json();
-  console.log(dataWorks);
+  //console.log(dataWorks);
   return dataWorks;
 }
 
@@ -47,20 +47,9 @@ async function categories() {
     "http://" + window.location.hostname + ":5678/api/categories"
   );
   const dataCategories = await response.json();
-  console.log(dataCategories);
+  //console.log(dataCategories);
   return dataCategories;
 }
-
-function test(dataCategories) {
-  console.log(dataCategories);
-}
-
-async function main() {
-  const data = await categories();
-  test(data);
-}
-
-main();
 
 //Mise en place des fonctions
 async function projet() {
@@ -75,7 +64,7 @@ async function projet() {
     imgProjet.appendChild(titleSophie);
     gallery.appendChild(imgProjet);
   });
-  console.log(dataProjet);
+  //console.log(dataProjet);
 }
 
 async function filtreTous() {
@@ -85,21 +74,22 @@ async function filtreTous() {
       gallerieTous;
     });
   });
-  console.log(dataFiltreTous);
+  //console.log(dataFiltreTous);
 }
 
 async function filtreTravaux() {
   const dataFiltreTravaux = await works();
   const buttonBis = await categories();
-  console.log(btn);
   const monSet = new Set();
-  monSet.add(works.categoryId);
-  for (let i = 0; i < buttonBis.length; i++) {
+
+  btn[0].addEventListener("click", () => {
+    console.log(btn[0]);
+  });
+
+  for (let i = 1; i < btn.length; i++) {
     btn[i].addEventListener("click", () => {
-      if (dataFiltreTravaux.filter((obj) => obj.categoryId === [i])) {
-        set.add(works.categoryId === [i]);
-        set.delete(works.categoryId != [i]);
-      }
+      console.log(btn[i]);
+    
     });
   }
 }
