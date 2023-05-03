@@ -6,6 +6,7 @@ const btnG = document.querySelector("#buttonG");
 const gallerieTous = document.querySelectorAll("#gallery > div");
 
 const buttonT = document.createElement("button");
+buttonT.setAttribute("categoryId", "0");
 buttonT.innerText = "Tous";
 buttonT.setAttribute("class", "button");
 buttonT.addEventListener("click", () => {
@@ -16,10 +17,12 @@ btnG.appendChild(buttonT);
 
 async function button() {
   const dataButton = await categories();
+  console.log(dataButton);
   dataButton.forEach((btn) => {
     const btnSite = document.createElement("button");
     btnSite.innerText = `${btn.name}`;
     btnSite.setAttribute("class", "button");
+    btnSite.setAttribute("categoryId", `${btn.id}`);
     btnG.appendChild(btnSite);
   });
   //console.log(dataButton);
@@ -27,10 +30,9 @@ async function button() {
 
 //Création du bouton générique "Tous"
 
-button();
-
 const btn = document.getElementsByClassName("button");
-//console.log(btn);
+
+console.log(btn);
 
 //Appel de l'API
 async function works() {
@@ -38,7 +40,7 @@ async function works() {
     "http://" + window.location.hostname + ":5678/api/works"
   );
   const dataWorks = await response.json();
-  //console.log(dataWorks);
+  console.log(dataWorks);
   return dataWorks;
 }
 
@@ -52,9 +54,9 @@ async function categories() {
 }
 
 //Mise en place des fonctions
-async function projet() {
-  const dataProjet = await works();
-  dataProjet.forEach((galleryImg) => {
+async function projet(dataProjet) {
+  const dataProjetAPI = await works();
+  dataProjetAPI.forEach((galleryImg) => {
     const imgProjet = document.createElement("div");
     const imgSophie = document.createElement("img");
     const titleSophie = document.createElement("h3");
@@ -62,41 +64,50 @@ async function projet() {
     titleSophie.innerText = `${galleryImg.title}`;
     imgProjet.appendChild(imgSophie);
     imgProjet.appendChild(titleSophie);
-    gallery.appendChild(imgProjet);
-  });
-  //console.log(dataProjet);
+    gallery.appendChild(imgProjet); 
+    
+  }
+  );
+console.log(dataProjet);
 }
-
-async function filtreTous() {
-  const dataFiltreTous = await works();
-  dataFiltreTous.forEach((tous) => {
-    buttonT.addEventListener("click", () => {
-      gallerieTous;
-    });
-  });
-  //console.log(dataFiltreTous);
-}
+projet('test')
 
 async function filtreTravaux() {
   const dataFiltreTravaux = await works();
   const buttonBis = await categories();
-  const monSet = new Set();
 
-  btn[0].addEventListener("click", () => {
-    console.log(btn[0]);
-  });
-
-  for (let i = 1; i < btn.length; i++) {
+  for (let i = 0; i < btn.length; i++) {
     btn[i].addEventListener("click", () => {
       console.log(btn[i]);
-    
-    });
+      let ctgId = btn[i].getAttribute("categoryId");
+      console.log(ctgId);
+      
+
+if (ctgId === "0") {
+  dataProjet.style.display= "block";
+}
+else if (ctgId === categories.id) {
+  categories.id[i].style.display="block"
+}
+
+
+//       if (ctgId === dataProjet.categoryId) {
+//         div.style.display= "block";
+//       }
+
+// else {
+//       div.style.display = "none";}
+
+
+
+    }
+    );
   }
 }
 
 //Appel des fonctions
 projet();
-filtreTous();
 filtreTravaux();
+button();
 
 //Etape 3 : Ajout de la modale
