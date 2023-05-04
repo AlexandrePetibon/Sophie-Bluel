@@ -64,44 +64,32 @@ async function projet(dataProjet) {
     titleSophie.innerText = `${galleryImg.title}`;
     imgProjet.appendChild(imgSophie);
     imgProjet.appendChild(titleSophie);
-    gallery.appendChild(imgProjet); 
-    
-  }
-  );
-console.log(dataProjet);
+    gallery.appendChild(imgProjet);
+  });
 }
-projet('test')
 
 async function filtreTravaux() {
   const dataFiltreTravaux = await works();
   const buttonBis = await categories();
-
   for (let i = 0; i < btn.length; i++) {
     btn[i].addEventListener("click", () => {
       console.log(btn[i]);
       let ctgId = btn[i].getAttribute("categoryId");
       console.log(ctgId);
-      
-
-if (ctgId === "0") {
-  dataProjet.style.display= "block";
-}
-else if (ctgId === categories.id) {
-  categories.id[i].style.display="block"
-}
-
-
-//       if (ctgId === dataProjet.categoryId) {
-//         div.style.display= "block";
-//       }
-
-// else {
-//       div.style.display = "none";}
-
-
-
-    }
-    );
+      if (ctgId === "0") {
+        const filteredData = dataFiltreTravaux.filter(
+          (imG) => imG.length === i
+        );
+        gallery.innerHTML = "";
+        projet(filteredData);
+      } else {
+        const filteredData = dataFiltreTravaux.filter(
+          (imG) => imG.categoryId === ctgId
+        );
+        gallery.innerHTML = "";
+        projet(filteredData);
+      }
+    });
   }
 }
 
