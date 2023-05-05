@@ -76,18 +76,23 @@ async function filtreTravaux() {
       console.log(btn[i]);
       let ctgId = btn[i].getAttribute("categoryId");
       console.log(ctgId);
-      if (ctgId === "0") {
-        const filteredData = dataFiltreTravaux.filter(
-          (imG) => imG.length === i
-        );
+      if (ctgId == 0) {
         gallery.innerHTML = "";
-        projet(filteredData);
+        projet();
       } else {
-        const filteredData = dataFiltreTravaux.filter(
-          (imG) => imG.categoryId === ctgId
-        );
         gallery.innerHTML = "";
-        projet(filteredData);
+        dataFiltreTravaux.forEach((galleryImg) => {
+          if (galleryImg.categoryId == ctgId) {
+            const imgProjet = document.createElement("div");
+            const imgSophie = document.createElement("img");
+            const titleSophie = document.createElement("h3");
+            imgSophie.src = `${galleryImg.imageUrl}`;
+            titleSophie.innerText = `${galleryImg.title}`;
+            imgProjet.appendChild(imgSophie);
+            imgProjet.appendChild(titleSophie);
+            gallery.appendChild(imgProjet);
+          }
+        });
       }
     });
   }
@@ -99,3 +104,20 @@ filtreTravaux();
 button();
 
 //Etape 3 : Ajout de la modale
+
+// utiliser display none et block pour le login
+
+const banner = document.querySelector(".mode-edition");
+
+function editMode() {
+  if (localStorage.login) {
+    banner.style = "display: flex";
+    btnG.style = "display:none";
+
+    console.log("Check");
+  } else {
+    console.log("No check");
+  }
+}
+
+editMode();
