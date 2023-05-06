@@ -245,3 +245,21 @@ a {
 	padding: 8px 15px;
 	border-radius: 50px;
 }
+
+.modifier1 {
+	display: flex;
+margin-left: 10%;
+margin-top: 15px;
+
+}
+
+.modifier2 {
+	display: flex;
+	justify-content: center;
+}
+
+.minibloch2 {
+display: flex;
+margin-top: 10px;
+margin-left: 20px;
+}

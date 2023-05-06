@@ -108,16 +108,34 @@ button();
 // utiliser display none et block pour le login
 
 const banner = document.querySelector(".mode-edition");
+const modifierUn = document.querySelector(".modifier1");
+const modifierDeux = document.querySelector(".minibloch2");
+const loginButton = document.querySelector("#login-button");
+const logInOut = document.querySelector('.log-in-out')
+const link = document.querySelector('#link')
 
 function editMode() {
-  if (localStorage.login) {
-    banner.style = "display: flex";
+  if (localStorage.getItem('token')) {
+    banner.style = "display:flex";
     btnG.style = "display:none";
-
+    modifierUn.style = "display:flex";
+    modifierDeux.style = "display:flex";
+    logInOut.innerText = "logout"
+    logInOut.addEventListener('click', () => {
+      localStorage.removeItem('token');
+      link.href = "index.html";
+    })
     console.log("Check");
   } else {
+    banner.style = "display:none";
+    btnG.style = "display:flex";
+    modifierUn.style = "display:none";
+    modifierDeux.style = "display:none";
     console.log("No check");
   }
 }
 
-editMode();
+editMode()
+
+
+//utiliser la const modifierDeux pour la modale
