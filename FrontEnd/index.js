@@ -111,20 +111,20 @@ const banner = document.querySelector(".mode-edition");
 const modifierUn = document.querySelector(".modifier1");
 const modifierDeux = document.querySelector(".minibloch2");
 const loginButton = document.querySelector("#login-button");
-const logInOut = document.querySelector('.log-in-out')
-const link = document.querySelector('#link')
+const logInOut = document.querySelector(".log-in-out");
+const link = document.querySelector("#link");
 
 function editMode() {
-  if (localStorage.getItem('token')) {
+  if (localStorage.getItem("token")) {
     banner.style = "display:flex";
     btnG.style = "display:none";
     modifierUn.style = "display:flex";
     modifierDeux.style = "display:flex";
-    logInOut.innerText = "logout"
-    logInOut.addEventListener('click', () => {
-      localStorage.removeItem('token');
+    logInOut.innerText = "logout";
+    logInOut.addEventListener("click", () => {
+      localStorage.removeItem("token");
       link.href = "index.html";
-    })
+    });
     console.log("Check");
   } else {
     banner.style = "display:none";
@@ -135,7 +135,18 @@ function editMode() {
   }
 }
 
-editMode()
-
+editMode();
 
 //utiliser la const modifierDeux pour la modale
+
+
+const openModal = function(e) {
+  e.preventDefault()
+  const modalOpen = document.querySelector(e.target.getAttribute('href'))
+  modalOpen.style.display = 'block'
+}
+
+document.querySelectorAll('.js-modal').forEach(a => {
+  a.addEventListener('click', openModal)
+  
+})
