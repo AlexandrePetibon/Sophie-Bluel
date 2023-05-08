@@ -139,11 +139,31 @@ editMode();
 
 //utiliser la const modifierDeux pour la modale
 
+let modal = null
 
 const openModal = function(e) {
   e.preventDefault()
   const modalOpen = document.querySelector(e.target.getAttribute('href'))
-  modalOpen.style.display = 'block'
+  console.log(modalOpen)
+  modalOpen.style.display = 'flex'
+  modal = modalOpen
+  modal.addEventListener('click', closeModal)
+  modal.querySelector('.js-close-modal').addEventListener('click', closeModal)
+  modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
+}
+
+const closeModal = function(e) {
+  if (modal === null) return
+  e.preventDefault()
+  modal.style.display = "none"
+  modal.removeEventListener('click', closeModal)
+  modal.querySelector('.js-close-modal').removeEventListener('click', closeModal)
+  modal.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation)
+  modal = null
+}
+
+const stopPropagation = function (e) {
+  e.stopPropagation()
 }
 
 document.querySelectorAll('.js-modal').forEach(a => {
