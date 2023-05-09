@@ -137,36 +137,57 @@ function editMode() {
 
 editMode();
 
-//utiliser la const modifierDeux pour la modale
+let modal = null;
 
-let modal = null
+const openModal = function (e) {
+  e.preventDefault();
+  const modalOpen = document.querySelector(e.target.getAttribute("href"));
+  console.log(modalOpen);
+  modalOpen.style.display = "flex";
+  modal = modalOpen;
+  modal.addEventListener("click", closeModal);
+  modal.querySelector(".js-close-modal").addEventListener("click", closeModal);
+  modal
+    .querySelector(".js-modal-stop")
+    .addEventListener("click", stopPropagation);
+};
 
-const openModal = function(e) {
-  e.preventDefault()
-  const modalOpen = document.querySelector(e.target.getAttribute('href'))
-  console.log(modalOpen)
-  modalOpen.style.display = 'flex'
-  modal = modalOpen
-  modal.addEventListener('click', closeModal)
-  modal.querySelector('.js-close-modal').addEventListener('click', closeModal)
-  modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
-}
-
-const closeModal = function(e) {
-  if (modal === null) return
-  e.preventDefault()
-  modal.style.display = "none"
-  modal.removeEventListener('click', closeModal)
-  modal.querySelector('.js-close-modal').removeEventListener('click', closeModal)
-  modal.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation)
-  modal = null
-}
+const closeModal = function (e) {
+  if (modal === null) return;
+  e.preventDefault();
+  modal.style.display = "none";
+  modal.removeEventListener("click", closeModal);
+  modal
+    .querySelector(".js-close-modal")
+    .removeEventListener("click", closeModal);
+  modal
+    .querySelector(".js-modal-stop")
+    .removeEventListener("click", stopPropagation);
+  modal = null;
+};
 
 const stopPropagation = function (e) {
-  e.stopPropagation()
+  e.stopPropagation();
+};
+
+document.querySelectorAll(".js-modal").forEach((a) => {
+  a.addEventListener("click", openModal);
+});
+
+const galleryModal = document.querySelector("#gallery-modal");
+
+async function projetModal() {
+  const dataProjetAPIModal = await works();
+  dataProjetAPIModal.forEach((galleryImgModal) => {
+    const imgProjet = document.createElement("div");
+    const imgSophie = document.createElement("img");
+    const titleEditer = document.createElement("div");
+    imgSophie.src = `${galleryImgModal.imageUrl}`;
+    titleEditer.innerText = "éditer";
+    imgProjet.appendChild(imgSophie);
+    imgProjet.appendChild(titleEditer);
+    galleryModal.appendChild(imgProjet);
+  });
 }
 
-document.querySelectorAll('.js-modal').forEach(a => {
-  a.addEventListener('click', openModal)
-  
-})
+projetModal();

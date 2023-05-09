@@ -13,7 +13,7 @@
 </head>
 <body>
 	<div class="mode-edition">
-		<i class="fa-solid fa-pen-to-square write" style="color: #ffffff;"></i>
+		<i class="fa-solid fa-pen-to-square write icon-style"></i>
 		<p class="mode-text">Mode éditon</p>
 		<p class="mode-chgmt">publier les changements</p>
 	</div>
@@ -44,18 +44,22 @@
 	</section>
 	<section id="portfolio">
 		<div class="modifier2"><h2>Mes Projets</h2>
-			
 				<div class="minibloch2">	
 					<i class="fa-solid fa-pen-to-square write"></i>
 					<p><a href="#modal" class="js-modal">modifier</a></p>
 				</div>
-			
 		</div>
 		<aside id="modal" class="modal-design">
 			<div class="modal-white js-modal-stop">
 				<i class="fa-solid fa-xmark js-close-modal"></i>
 				<p class="title-modal">Galerie photo</p>
-				<button class="button-modal"> Ajouter une photo</button>
+				<div id="gallery-modal"></div>
+				<div class="bloc-modal-button-un">
+					<button class="button-modal">
+						<p class="button-modal-text">Ajouter une photo</p>
+					</button>
+					<p class="sup-g">Supprimer la galerie</p>
+				</div>
 			</div>
 		</aside>
 		<div id="buttonG"></div>
