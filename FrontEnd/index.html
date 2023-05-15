@@ -53,13 +53,44 @@
 			<div class="modal-white js-modal-stop">
 				<i class="fa-solid fa-xmark js-close-modal"></i>
 				<p class="title-modal">Galerie photo</p>
-				<div id="gallery-modal"></div>
+				<div id="gallery-modal" class="border-modal">
+					<i class="fa-solid fa-arrows-up-down-left-right"></i>
+					<i class="fa-solid fa-trash-can"></i>
+				</div>
 				<div class="bloc-modal-button-un">
 					<button class="button-modal">
-						<p class="button-modal-text">Ajouter une photo</p>
+							<p class="button-modal-text"><a href="#modal2" class="js-modal2">Ajouter une photo</a></p>
 					</button>
 					<p class="sup-g">Supprimer la galerie</p>
 				</div>
+			</div>
+		</aside>
+		<aside id="modal2" class="modal-design">
+			<div class="modal-white-2 js-modal-stop">
+				<i class="fa-solid fa-arrow-left"></i>
+				<i class="fa-solid fa-xmark js-close-modal"></i>
+				<p class="title-modal">Ajout photo</p>
+				<div class="ajout-photo">
+					<div class="border-modal border-modal-size">
+					<div class="box-modal2">
+						<div class="box-modal2-photo">
+							<i class="fa-sharp fa-regular fa-image logo-ajout-photo"></i>
+							<button class="button-ajout-photo">+ Ajouter photo</button>
+							<p class="desc-ajout-photo">jpg, png : 4mo max</p>
+						</div>
+					</div>
+					<form action="" class="label-ajout">
+						<label for="">Titre
+							<input type="text">
+						</label>
+						<label for="">Catégorie
+							<select name="" id="">
+								<option value=""></option>
+							</select>
+						</label>
+				</form>
+			</div>
+				<button class="valid-ajout-photo">Valider</button>
 			</div>
 		</aside>
 		<div id="buttonG"></div>

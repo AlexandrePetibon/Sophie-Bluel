@@ -54,7 +54,7 @@ async function categories() {
 }
 
 //Mise en place des fonctions
-async function projet(dataProjet) {
+async function projet() {
   const dataProjetAPI = await works();
   dataProjetAPI.forEach((galleryImg) => {
     const imgProjet = document.createElement("div");
@@ -191,3 +191,29 @@ async function projetModal() {
 }
 
 projetModal();
+
+const modalUno = document.querySelector("#modal");
+const modalDue = document.querySelector("#modal2");
+const buttonModalUno = document.querySelector(".js-modal2");
+
+function modalDeux() {
+  buttonModalUno.addEventListener("click", function() {
+    modalDue.style.display = "flex";
+    modalUno.style.display = "none";
+  });
+}
+
+modalDeux();
+
+const listeDeroul = document.querySelector("select");
+
+async function modalDeuxCategorie() {
+  const modalCategories = await categories();
+  modalCategories.forEach((modalCategorie) => {
+    const elementListe = document.createElement("option");
+    elementListe.innerText = modalCategorie.name;
+    listeDeroul.appendChild(elementListe);
+  });
+}
+
+modalDeuxCategorie();

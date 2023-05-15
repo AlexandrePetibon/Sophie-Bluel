@@ -281,10 +281,12 @@ a {
 
 .modal-white {
 	overflow: auto;
-	width: 630px;
+	width: 40%;
+	height: 90%;
+	/* width: 630px;
 	height: 525px;
 	max-width: calc(100vh - 20px);
-	max-height: calc(100vh - 20px);
+	max-height: calc(100vh - 20px); */
 	padding: 20px;
 	background-color: white;
 	border-radius: 15px;
@@ -298,22 +300,31 @@ a {
 	font-weight: 400;
 	font-size: 26px;
 	text-align: center;
-	margin-top: 15px;
-	margin-bottom: 46px;
+	margin-top: 10px;
+	margin-bottom: 30px;
+}
+
+.border-modal {
+	border-bottom: 1px solid #B3B3B3;
+}
+
+.border-modal-size {
+	margin-left: 65px;
+	margin-right: 65px;
 }
 
 #gallery-modal {
-	border-bottom: 1px solid #B3B3B3;
-	padding-bottom: 47px;
-	margin: 0 105px;
+	padding-bottom: 30px;
+	margin: 0 8%;
+	display: grid;
+	grid-template-columns: 12% 12% 12% 12% 12%;
+	gap: 5px 10%;
 }
 
 #gallery-modal img {
-	width: 78px;
+	width: 75px;
 	height: 104px;
-	display: grid;
-	grid-template-columns: 78px 78px 78px 78px 78px;
-	grid-template-rows: 104px 104px 104px;
+	/* height: 104px; */
 }
 
 #gallery-modal div {
@@ -331,7 +342,6 @@ a {
 .button-modal {
 	font-family: 'Syne';
 	font-weight: 700;
-	color: white;
 	background-color: #1D6154;
 	width: 250px;
 	text-align: center;
@@ -350,7 +360,74 @@ a {
 	align-items: center;
 }
 
+button a {
+	color: white;
+}
+
 .sup-g {
 	color: #D65353;
-	margin-top: 25px;
+	margin-top: 20px;
+} 
+
+.modal-white-2 {
+	overflow: auto;
+	width: 40%;
+	height: 60%;
+	/* width: 630px;
+	height: 525px;
+	max-width: calc(100vh - 20px);
+	max-height: calc(100vh - 20px); */
+	padding: 20px;
+	background-color: white;
+	border-radius: 15px;
+}
+
+.box-modal2-photo {
+	background-color: #E8F1F7;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.ajout-modal {
+	display: flex;
+	flex-direction: column;
+}
+
+.label-ajout {
+	display: flex;
+	flex-direction: column;
+}
+
+.button-ajout-photo {
+	color: #306685;
+	background-color: #CBD6DC;
+	border-radius: 25px;
+	padding: 10px 33px;
+	margin: 19px 25% 0 25%;
+}
+
+.logo-ajout-photo {
+	width: 58px;
+	margin-top: 28px;
+}
+
+.desc-ajout-photo {
+	color: #444444;
+	margin-top: 17px;
+	margin-bottom: 19px;
+}
+
+.valid-ajout-photo {
+	background-color: #A7A7A7;
+	color: white;
+	padding: 10px 22%;
+	border-radius: 25px;
+	margin-left: 25%;
+	margin-right: 25%;
+	margin-top: 30px;
+}
+
+.box-modal2 {
+	margin-bottom: 30px;
 }
