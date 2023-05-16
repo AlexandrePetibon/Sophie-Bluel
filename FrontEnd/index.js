@@ -180,13 +180,22 @@ async function projetModal() {
   const dataProjetAPIModal = await works();
   dataProjetAPIModal.forEach((galleryImgModal) => {
     const imgProjet = document.createElement("div");
+    const imgContainer = document.createElement("div");
     const imgSophie = document.createElement("img");
     const titleEditer = document.createElement("div");
+    const trashIcon = document.createElement("i");
+    const trashIconBox = document.createElement("div")
     imgSophie.src = `${galleryImgModal.imageUrl}`;
     titleEditer.innerText = "éditer";
-    imgProjet.appendChild(imgSophie);
+    trashIcon.className = "fa-solid fa-trash-can";
+    trashIconBox.className = "box-trash"
+    trashIconBox.appendChild(trashIcon)
+    imgContainer.appendChild(imgSophie); 
+    imgContainer.appendChild(trashIconBox);
+    imgProjet.appendChild(imgContainer);
     imgProjet.appendChild(titleEditer);
     galleryModal.appendChild(imgProjet);
+    imgContainer.className = "img-container";
   });
 }
 
@@ -217,3 +226,15 @@ async function modalDeuxCategorie() {
 }
 
 modalDeuxCategorie();
+
+const arrowLeft = document.querySelector(".fa-arrow-left");
+
+arrowLeft.addEventListener("click", function () {
+  modalDue.style.display = "none";
+  modalUno.style.display = "flex";
+});
+
+
+
+
+

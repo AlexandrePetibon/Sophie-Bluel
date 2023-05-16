@@ -55,7 +55,6 @@
 				<p class="title-modal">Galerie photo</p>
 				<div id="gallery-modal" class="border-modal">
 					<i class="fa-solid fa-arrows-up-down-left-right"></i>
-					<i class="fa-solid fa-trash-can"></i>
 				</div>
 				<div class="bloc-modal-button-un">
 					<button class="button-modal">
@@ -67,11 +66,11 @@
 		</aside>
 		<aside id="modal2" class="modal-design">
 			<div class="modal-white-2 js-modal-stop">
-				<i class="fa-solid fa-arrow-left"></i>
-				<i class="fa-solid fa-xmark js-close-modal"></i>
+				<div class="icon-modal2"><i class="fa-solid fa-arrow-left"></i>
+				<i class="fa-solid fa-xmark js-close-modal"></i></div>
 				<p class="title-modal">Ajout photo</p>
 				<div class="ajout-photo">
-					<div class="border-modal border-modal-size">
+					<div class="border-modal border-modal-size border-modal2">
 					<div class="box-modal2">
 						<div class="box-modal2-photo">
 							<i class="fa-sharp fa-regular fa-image logo-ajout-photo"></i>
@@ -80,14 +79,14 @@
 						</div>
 					</div>
 					<form action="" class="label-ajout">
-						<label for="">Titre
-							<input type="text">
-						</label>
-						<label for="">Catégorie
-							<select name="" id="">
+						<div class="label-text"><label for=""><p class="form-titre">Titre</p>
+							<input type="text" class="form-size">
+						</label></div>
+						<div class="label-text"><label for=""><p class="form-categorie">Catégorie</p>
+							<select name="" id="" class="form-size">
 								<option value=""></option>
 							</select>
-						</label>
+						</label></div>
 				</form>
 			</div>
 				<button class="valid-ajout-photo">Valider</button>
