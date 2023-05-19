@@ -481,3 +481,7 @@ button a {
 	padding: 4px;
 	background-color: black;
 }
+
+.selected-image {
+	width: 135px; 
+  }

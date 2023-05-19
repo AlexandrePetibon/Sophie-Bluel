@@ -138,11 +138,13 @@ function editMode() {
 editMode();
 
 let modal = null;
+let previousModal = null;
 
 const openModal = function (e) {
   e.preventDefault();
   const modalOpen = document.querySelector(e.target.getAttribute("href"));
   console.log(modalOpen);
+  previousModal = modal;
   modalOpen.style.display = "flex";
   modal = modalOpen;
   modal.addEventListener("click", closeModal);
@@ -155,6 +157,18 @@ const openModal = function (e) {
 const closeModal = function (e) {
   if (modal === null) return;
   e.preventDefault();
+  if (modal !== previousModal) {
+    modal.style.display = "none";
+    modal.removeEventListener("click", closeModal);
+    modal
+      .querySelector(".js-close-modal")
+      .removeEventListener("click", closeModal);
+    modal
+      .querySelector(".js-modal-stop")
+      .removeEventListener("click", stopPropagation);
+    modal = previousModal;
+    previousModal = null;
+  }
   modal.style.display = "none";
   modal.removeEventListener("click", closeModal);
   modal
@@ -163,7 +177,8 @@ const closeModal = function (e) {
   modal
     .querySelector(".js-modal-stop")
     .removeEventListener("click", stopPropagation);
-  modal = null;
+  modal = previousModal;
+  previousModal = null;
 };
 
 const stopPropagation = function (e) {
@@ -171,6 +186,10 @@ const stopPropagation = function (e) {
 };
 
 document.querySelectorAll(".js-modal").forEach((a) => {
+  a.addEventListener("click", openModal);
+});
+
+document.querySelectorAll(".js-modal2").forEach((a) => {
   a.addEventListener("click", openModal);
 });
 
@@ -184,13 +203,13 @@ async function projetModal() {
     const imgSophie = document.createElement("img");
     const titleEditer = document.createElement("div");
     const trashIcon = document.createElement("i");
-    const trashIconBox = document.createElement("div")
+    const trashIconBox = document.createElement("div");
     imgSophie.src = `${galleryImgModal.imageUrl}`;
     titleEditer.innerText = "éditer";
     trashIcon.className = "fa-solid fa-trash-can";
-    trashIconBox.className = "box-trash"
-    trashIconBox.appendChild(trashIcon)
-    imgContainer.appendChild(imgSophie); 
+    trashIconBox.className = "box-trash";
+    trashIconBox.appendChild(trashIcon);
+    imgContainer.appendChild(imgSophie);
     imgContainer.appendChild(trashIconBox);
     imgProjet.appendChild(imgContainer);
     imgProjet.appendChild(titleEditer);
@@ -206,7 +225,7 @@ const modalDue = document.querySelector("#modal2");
 const buttonModalUno = document.querySelector(".js-modal2");
 
 function modalDeux() {
-  buttonModalUno.addEventListener("click", function() {
+  buttonModalUno.addEventListener("click", function () {
     modalDue.style.display = "flex";
     modalUno.style.display = "none";
   });
@@ -234,7 +253,33 @@ arrowLeft.addEventListener("click", function () {
   modalUno.style.display = "flex";
 });
 
+const buttonAjoutPhoto = document.querySelector(".button-ajout-photo");
 
-
-
-
+buttonAjoutPhoto.addEventListener("click", () => {
+  const input = document.createElement("input");
+  input.type = "file";
+  input.addEventListener("change", (event) => {
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+    const imgElement = document.createElement("img");
+    imgElement.classList.add("selected-image");
+    const boxModal2Photo = document.querySelector(".box-modal2-photo");
+    boxModal2Photo.innerHTML = "";
+    boxModal2Photo.appendChild(imgElement);
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      imgElement.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+    fetch("http://" + window.location.hostname + ":5678/api/post", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => {})
+      .catch((error) => {
+        console.error(error);
+      });
+  });
+  input.click();
+});
