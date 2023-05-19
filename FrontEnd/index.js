@@ -204,13 +204,19 @@ async function projetModal() {
     const titleEditer = document.createElement("div");
     const trashIcon = document.createElement("i");
     const trashIconBox = document.createElement("div");
+    const arrowFour = document.createElement("i")
+    const arrowFourBox = document.createElement("div")
     imgSophie.src = `${galleryImgModal.imageUrl}`;
     titleEditer.innerText = "éditer";
     trashIcon.className = "fa-solid fa-trash-can";
     trashIconBox.className = "box-trash";
+    arrowFour.className = "fa-solid fa-arrows-up-down-left-right"
+    arrowFourBox.className = "box-arrow"
     trashIconBox.appendChild(trashIcon);
     imgContainer.appendChild(imgSophie);
     imgContainer.appendChild(trashIconBox);
+    arrowFourBox.appendChild(arrowFour)
+    imgContainer.appendChild(arrowFourBox)
     imgProjet.appendChild(imgContainer);
     imgProjet.appendChild(titleEditer);
     galleryModal.appendChild(imgProjet);
@@ -272,7 +278,7 @@ buttonAjoutPhoto.addEventListener("click", () => {
       imgElement.src = e.target.result;
     };
     reader.readAsDataURL(file);
-    fetch("http://" + window.location.hostname + ":5678/api/post", {
+    fetch("http://" + window.location.hostname + ":5678/api/works", {
       method: "POST",
       body: formData,
     })
@@ -283,3 +289,22 @@ buttonAjoutPhoto.addEventListener("click", () => {
   });
   input.click();
 });
+
+
+const imageInput = document.querySelector(".logo-ajout-photo");
+const titleInput = document.querySelector(".textUn");
+const categoryInput = document.querySelector(".catUn");
+const validerButton = document.getElementById("validerButton");
+
+function validateForm() {
+  const imageLoaded = imageInput.classList.contains("selected-image");
+  const titleValid = titleInput.value !== "";
+  const categorySelected = categoryInput.value !== "";
+  if (imageLoaded && titleValid && categorySelected) {
+    validerButton.classList.add("green-button");
+  } else {
+    validerButton.classList.remove("green-button");
+  }
+}
+
+validateForm();

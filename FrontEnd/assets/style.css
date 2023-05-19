@@ -470,18 +470,43 @@ button a {
 	height: auto;
   }
   
-  .img-container div {
+  .box-trash {
 	position: absolute;
 	top: 5px;
 	right: 5px;
 	color: white;
+	display: none;
   }
 
-.box-trash {
+  .img-container:hover .box-trash {
+	display: block;
+  }
+
+  .box-arrow {
+	position: absolute;
+	top: 5px;
+	right: 30px;
+	color: white;
+	display: none;
+}
+
+.img-container:hover .box-arrow {
+	display: block;
+}
+
+.box-trash, .box-arrow {
 	padding: 4px;
 	background-color: black;
 }
 
 .selected-image {
 	width: 135px; 
+  }
+
+
+
+
+  .green-button {
+	background-color: green;
+	color: white;
   }
