@@ -259,9 +259,6 @@ arrowLeft.addEventListener("click", function () {
 });
 
 const buttonAjoutPhoto = document.querySelector(".button-ajout-photo");
-// const token = localStorage.getItem("token");
-// localStorage.setItem("token", token);
-
 const input = document.createElement("input");
 input.type = "file";
 
@@ -284,20 +281,8 @@ input.addEventListener("change", (event) => {
     imgElement.src = e.target.result;
   };
   reader.readAsDataURL(file);
-  fetch("http://" + window.location.hostname + ":5678/api/works", {
-    method: "POST",
-    headers: {
-      "Acces-Control-Allow-Origin": "*",
-      Authorization: "Bearer " + localStorage.getItem("token"),
-    },
-    body: formData,
-  })
-  .then((response) => {})
-  .catch((error) => {
-    console.error(error);
-  });
+  validateForm();
 });
-
 
 const imageInput = document.querySelector(".logo-ajout-photo");
 const titleInput = document.querySelector(".textUn");
@@ -315,4 +300,32 @@ function validateForm() {
   }
 }
 
-validateForm();
+validateForm()
+
+imageInput.addEventListener("change", validateForm);
+titleInput.addEventListener("input", validateForm);
+categoryInput.addEventListener("change", validateForm);
+
+validerButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  const imageLoaded = imageInput.classList.contains("selected-image");
+  const titleValid = titleInput.value !== "";
+  const categorySelected = categoryInput.value !== "";
+  if (imageLoaded && titleValid && categorySelected) {
+    const file = input.files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+    fetch("http://" + window.location.hostname + ":5678/api/works", {
+      method: "POST",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body: formData,
+    })
+      .then((response) => {})
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+});
