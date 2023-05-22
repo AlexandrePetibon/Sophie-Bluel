@@ -262,38 +262,40 @@ const buttonAjoutPhoto = document.querySelector(".button-ajout-photo");
 // const token = localStorage.getItem("token");
 // localStorage.setItem("token", token);
 
+const input = document.createElement("input");
+input.type = "file";
+
 buttonAjoutPhoto.addEventListener("click", (event) => {
   event.preventDefault();
-  const input = document.createElement("input");
-  input.type = "file";
-  input.addEventListener("change", (event) => {
-    const file = event.target.files[0];
-    const formData = new FormData();
-    formData.append("image", file);
-    const imgElement = document.createElement("img");
-    imgElement.classList.add("selected-image");
-    const boxModal2Photo = document.querySelector(".box-modal2-photo");
-    boxModal2Photo.innerHTML = "";
-    boxModal2Photo.appendChild(imgElement);
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      imgElement.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-    fetch("http://" + window.location.hostname + ":5678/api/works", {
-      method: "POST",
-      headers: {
-        "Acces-Control-Allow-Origin": "*",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      body: formData,
-    })
-      .then((response) => {})
-      .catch((error) => {
-        console.error(error);
-      });
-  });
   input.click();
+});
+
+input.addEventListener("change", (event) => {
+  const file = event.target.files[0];
+  const formData = new FormData();
+  formData.append("image", file);
+  const imgElement = document.createElement("img");
+  imgElement.classList.add("selected-image");
+  const boxModal2Photo = document.querySelector(".box-modal2-photo");
+  boxModal2Photo.innerHTML = "";
+  boxModal2Photo.appendChild(imgElement);
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    imgElement.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+  fetch("http://" + window.location.hostname + ":5678/api/works", {
+    method: "POST",
+    headers: {
+      "Acces-Control-Allow-Origin": "*",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+    body: formData,
+  })
+  .then((response) => {})
+  .catch((error) => {
+    console.error(error);
+  });
 });
 
 
