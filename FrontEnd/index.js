@@ -49,7 +49,6 @@ async function categories() {
     "http://" + window.location.hostname + ":5678/api/categories"
   );
   const dataCategories = await response.json();
-  //console.log(dataCategories);
   return dataCategories;
 }
 
@@ -204,19 +203,19 @@ async function projetModal() {
     const titleEditer = document.createElement("div");
     const trashIcon = document.createElement("i");
     const trashIconBox = document.createElement("div");
-    const arrowFour = document.createElement("i")
-    const arrowFourBox = document.createElement("div")
+    const arrowFour = document.createElement("i");
+    const arrowFourBox = document.createElement("div");
     imgSophie.src = `${galleryImgModal.imageUrl}`;
     titleEditer.innerText = "éditer";
     trashIcon.className = "fa-solid fa-trash-can";
     trashIconBox.className = "box-trash";
-    arrowFour.className = "fa-solid fa-arrows-up-down-left-right"
-    arrowFourBox.className = "box-arrow"
+    arrowFour.className = "fa-solid fa-arrows-up-down-left-right";
+    arrowFourBox.className = "box-arrow";
     trashIconBox.appendChild(trashIcon);
     imgContainer.appendChild(imgSophie);
     imgContainer.appendChild(trashIconBox);
-    arrowFourBox.appendChild(arrowFour)
-    imgContainer.appendChild(arrowFourBox)
+    arrowFourBox.appendChild(arrowFour);
+    imgContainer.appendChild(arrowFourBox);
     imgProjet.appendChild(imgContainer);
     imgProjet.appendChild(titleEditer);
     galleryModal.appendChild(imgProjet);
@@ -260,8 +259,11 @@ arrowLeft.addEventListener("click", function () {
 });
 
 const buttonAjoutPhoto = document.querySelector(".button-ajout-photo");
+// const token = localStorage.getItem("token");
+// localStorage.setItem("token", token);
 
-buttonAjoutPhoto.addEventListener("click", () => {
+buttonAjoutPhoto.addEventListener("click", (event) => {
+  event.preventDefault();
   const input = document.createElement("input");
   input.type = "file";
   input.addEventListener("change", (event) => {
@@ -280,6 +282,10 @@ buttonAjoutPhoto.addEventListener("click", () => {
     reader.readAsDataURL(file);
     fetch("http://" + window.location.hostname + ":5678/api/works", {
       method: "POST",
+      headers: {
+        "Acces-Control-Allow-Origin": "*",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
       body: formData,
     })
       .then((response) => {})
