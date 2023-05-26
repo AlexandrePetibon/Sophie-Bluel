@@ -281,41 +281,54 @@ input.addEventListener("change", (event) => {
     imgElement.src = e.target.result;
   };
   reader.readAsDataURL(file);
-  validateForm();
 });
 
-const imageInput = document.querySelector(".logo-ajout-photo");
+const imageInput = document.querySelector(".selected-image");
+console.log(imageInput);
 const titleInput = document.querySelector(".textUn");
 const categoryInput = document.querySelector(".catUn");
 const validerButton = document.getElementById("validerButton");
 
 function validateForm() {
-  const imageLoaded = imageInput.classList.contains("selected-image");
   const titleValid = titleInput.value !== "";
+  console.log(titleValid);
   const categorySelected = categoryInput.value !== "";
-  if (imageLoaded && titleValid && categorySelected) {
+  console.log(categorySelected);
+  const boxPhoto = document.querySelector(".box-modal2-photo");
+  if (
+    boxPhoto.querySelector(".selected-image") &&
+    titleValid &&
+    categorySelected
+  ) {
     validerButton.classList.add("green-button");
+    return true;
   } else {
     validerButton.classList.remove("green-button");
+    return false;
   }
 }
+validateForm();
 
-validateForm()
-
-imageInput.addEventListener("change", validateForm);
 titleInput.addEventListener("input", validateForm);
 categoryInput.addEventListener("change", validateForm);
 
 validerButton.addEventListener("click", (event) => {
   event.preventDefault();
-  const imageLoaded = imageInput.classList.contains("selected-image");
-  const titleValid = titleInput.value !== "";
-  const categorySelected = categoryInput.value !== "";
-  if (imageLoaded && titleValid && categorySelected) {
+  console.log(localStorage.getItem("token"));
+
+  if (validateForm() == true) {
     const file = input.files[0];
     const formData = new FormData();
-    formData.append("image", file);
-    fetch("http://" + window.location.hostname + ":5678/api/works", {
+    // const dataTest = {"image": file, "title": titleInput.value, "category": categoryInput.value}
+    // console.log(dataTest)
+    formData.append("imageUrl", input.files[0]);
+    console.log(file);
+    formData.append("title", titleInput.value);
+    console.log(titleInput.value);
+    formData.append("categoryId", categoryInput.value);
+    console.log(categoryInput.value);
+    console.log(formData);
+    fetch("http://localhost:5678/api/works", {
       method: "POST",
       headers: {
         "Access-Control-Allow-Origin": "*",
@@ -323,9 +336,15 @@ validerButton.addEventListener("click", (event) => {
       },
       body: formData,
     })
-      .then((response) => {})
+      .then((response) => {
+        if (response.ok) {
+          response.json().then((result) => {
+            console.log(result);
+          });
+        }
+      })
       .catch((error) => {
-        console.error(error);
+        alert("Erreur de chargement de l'image");
       });
   }
 });
