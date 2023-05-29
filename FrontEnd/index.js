@@ -205,8 +205,9 @@ async function projetModal() {
     const trashIconBox = document.createElement("div");
     const arrowFour = document.createElement("i");
     const arrowFourBox = document.createElement("div");
-    imgSophie.src = `${galleryImgModal.imageUrl}`;
-    titleEditer.innerText = "éditer";
+    trashIconBox.id = "deleteProject";
+    imgSophie.src = galleryImgModal.imageUrl;
+    titleEditer.textContent = "éditer";
     trashIcon.className = "fa-solid fa-trash-can";
     trashIconBox.className = "box-trash";
     arrowFour.className = "fa-solid fa-arrows-up-down-left-right";
@@ -245,6 +246,7 @@ async function modalDeuxCategorie() {
   modalCategories.forEach((modalCategorie) => {
     const elementListe = document.createElement("option");
     elementListe.innerText = modalCategorie.name;
+    elementListe.setAttribute("value", modalCategorie.id);
     listeDeroul.appendChild(elementListe);
   });
 }
@@ -312,39 +314,93 @@ validateForm();
 titleInput.addEventListener("input", validateForm);
 categoryInput.addEventListener("change", validateForm);
 
-validerButton.addEventListener("click", (event) => {
+validerButton.addEventListener("click", async (event) => {
   event.preventDefault();
-  console.log(localStorage.getItem("token"));
 
   if (validateForm() == true) {
     const file = input.files[0];
     const formData = new FormData();
-    // const dataTest = {"image": file, "title": titleInput.value, "category": categoryInput.value}
-    // console.log(dataTest)
-    formData.append("imageUrl", input.files[0]);
-    console.log(file);
     formData.append("title", titleInput.value);
-    console.log(titleInput.value);
-    formData.append("categoryId", categoryInput.value);
-    console.log(categoryInput.value);
-    console.log(formData);
-    fetch("http://localhost:5678/api/works", {
-      method: "POST",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      body: formData,
-    })
-      .then((response) => {
-        if (response.ok) {
-          response.json().then((result) => {
-            console.log(result);
-          });
-        }
-      })
-      .catch((error) => {
-        alert("Erreur de chargement de l'image");
+    formData.append("image", file);
+    formData.append("category", categoryInput.value);
+    try {
+      const response = await fetch("http://localhost:5678/api/works", {
+        method: "POST",
+        headers: {
+          "Acces-Control-Allow-Origin": "*",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: formData,
       });
+      if (response.ok) {
+        const projet = await response.json();
+        console.log("Projet ajouté avec succès:", projet);
+      } else {
+        console.error("Erreur lors de l'ajout du projet:", response.status);
+      }
+    } catch (error) {
+      console.error("Erreur lors de la requête:", error);
+    }
   }
 });
+
+async function delWork(workId) {
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return;
+    }
+    const response = await fetch(`http://${window.location.hostname}:5678/api/works/${workId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response.ok) {
+      console.log('Supprimé avec succès');
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        const result = await response.json();
+        console.log(result);
+      } else {
+        console.log('Suppression réussie.');
+      }
+    } else {
+      console.error('Erreur lors de la suppression du fichier.');
+    }
+  } catch (error) {
+    console.log('Une erreur s\'est produite lors de la suppression', error);
+  }
+}
+
+const deleteProjectDiv = document.getElementById('deleteProject');
+deleteProjectDiv.addEventListener('click', async () => {
+  const projectElement = deleteProjectDiv.parentNode;
+  const gallery = projectElement.parentNode;
+  gallery.removeChild(projectElement);
+  try {
+    const response = await fetch(`http://localhost:5678/api/works/{id}`, {
+      method: 'DELETE',
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      },
+    });
+
+    if (response.ok) {
+      console.log('Projet supprimé avec succès.');
+    } else if (response.status === 401) {
+      console.error('Non autorisé à effectuer cette action.');
+    } else {
+      console.error('Erreur lors de la suppression du projet:', response.status);
+    }
+  } catch (error) {
+    console.error('Erreur lors de la requête:', error);
+  }
+});
+
+async function displayWorksInModal() {
+  const works = await getWorks();
+  displayWorks(works);
+}
