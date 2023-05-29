@@ -168,16 +168,6 @@ const closeModal = function (e) {
     modal = previousModal;
     previousModal = null;
   }
-  modal.style.display = "none";
-  modal.removeEventListener("click", closeModal);
-  modal
-    .querySelector(".js-close-modal")
-    .removeEventListener("click", closeModal);
-  modal
-    .querySelector(".js-modal-stop")
-    .removeEventListener("click", stopPropagation);
-  modal = previousModal;
-  previousModal = null;
 };
 
 const stopPropagation = function (e) {
@@ -344,37 +334,10 @@ validerButton.addEventListener("click", async (event) => {
   }
 });
 
-async function delWork(workId) {
-  try {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      return;
-    }
-    const response = await fetch(`http://${window.location.hostname}:5678/api/works/${workId}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    if (response.ok) {
-      console.log('Supprimé avec succès');
-      const contentType = response.headers.get('content-type');
-      if (contentType && contentType.includes('application/json')) {
-        const result = await response.json();
-        console.log(result);
-      } else {
-        console.log('Suppression réussie.');
-      }
-    } else {
-      console.error('Erreur lors de la suppression du fichier.');
-    }
-  } catch (error) {
-    console.log('Une erreur s\'est produite lors de la suppression', error);
-  }
-}
 
-const deleteProjectDiv = document.getElementById('deleteProject');
+
+
+const deleteProjectDiv = document.getElementById("deleteProject");
 deleteProjectDiv.addEventListener('click', async () => {
   const projectElement = deleteProjectDiv.parentNode;
   const gallery = projectElement.parentNode;
@@ -399,8 +362,3 @@ deleteProjectDiv.addEventListener('click', async () => {
     console.error('Erreur lors de la requête:', error);
   }
 });
-
-async function displayWorksInModal() {
-  const works = await getWorks();
-  displayWorks(works);
-}
