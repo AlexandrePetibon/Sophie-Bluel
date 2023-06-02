@@ -202,6 +202,7 @@ async function projetModal() {
     trashIconBox.className = "box-trash";
     arrowFour.className = "fa-solid fa-arrows-up-down-left-right";
     arrowFourBox.className = "box-arrow";
+    imgProjet.className = "delProj"
     trashIconBox.appendChild(trashIcon);
     imgContainer.appendChild(imgSophie);
     imgContainer.appendChild(trashIconBox);
@@ -347,8 +348,8 @@ function deleteProject () {
   const deleteProjectDiv = document.querySelector(".box-trash");
   console.log(deleteProjectDiv);
   deleteProjectDiv.addEventListener("click", () => {
-   
-    const id = imgProjet.getAttribute("id");
+   const imgProj = document.querySelector(".delProj")
+    const id = imgProj.getAttribute("id");
     console.log(id);
     try {
       const response = fetch(`http://localhost:5678/api/works/${id}`, {
