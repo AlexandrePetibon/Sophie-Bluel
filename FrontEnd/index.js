@@ -186,6 +186,7 @@ const galleryModal = document.querySelector("#gallery-modal");
 
 async function projetModal() {
   const dataProjetAPIModal = await works();
+  console.log(dataProjetAPIModal)
   dataProjetAPIModal.forEach((galleryImgModal) => {
     const imgProjet = document.createElement("div");
     const imgContainer = document.createElement("div");
@@ -195,7 +196,6 @@ async function projetModal() {
     const trashIconBox = document.createElement("div");
     const arrowFour = document.createElement("i");
     const arrowFourBox = document.createElement("div");
-    trashIconBox.id = "deleteProject";
     imgSophie.src = galleryImgModal.imageUrl;
     titleEditer.textContent = "éditer";
     trashIcon.className = "fa-solid fa-trash-can";
@@ -209,9 +209,12 @@ async function projetModal() {
     imgContainer.appendChild(arrowFourBox);
     imgProjet.appendChild(imgContainer);
     imgProjet.appendChild(titleEditer);
+    imgProjet.setAttribute("id", galleryImgModal.id)
+    console.log(galleryImgModal.id)
     galleryModal.appendChild(imgProjet);
     imgContainer.className = "img-container";
   });
+  deleteProject()
 }
 
 projetModal();
@@ -335,30 +338,40 @@ validerButton.addEventListener("click", async (event) => {
 });
 
 
+ // const projectElement = deleteProjectDiv.parentNode;
+    // const gallery = projectElement.parentNode;
+    // gallery.removeChild(projectElement);
 
 
-const deleteProjectDiv = document.getElementById("deleteProject");
-deleteProjectDiv.addEventListener('click', async () => {
-  const projectElement = deleteProjectDiv.parentNode;
-  const gallery = projectElement.parentNode;
-  gallery.removeChild(projectElement);
-  try {
-    const response = await fetch(`http://localhost:5678/api/works/{id}`, {
-      method: 'DELETE',
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      },
-    });
-
-    if (response.ok) {
-      console.log('Projet supprimé avec succès.');
-    } else if (response.status === 401) {
-      console.error('Non autorisé à effectuer cette action.');
-    } else {
-      console.error('Erreur lors de la suppression du projet:', response.status);
+function deleteProject () {
+  const deleteProjectDiv = document.querySelector(".box-trash");
+  console.log(deleteProjectDiv);
+  deleteProjectDiv.addEventListener("click", () => {
+   
+    const id = imgProjet.getAttribute("id");
+    console.log(id);
+    try {
+      const response = fetch(`http://localhost:5678/api/works/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+  
+      if (response.ok) {
+        console.log("Projet supprimé avec succès.");
+      } else if (response.status === 401) {
+        console.error("Non autorisé à effectuer cette action.");
+      } else {
+        console.error(
+          "Erreur lors de la suppression du projet:",
+          response.status
+        );
+      }
+    } catch (error) {
+      console.error("Erreur lors de la requête:", error);
     }
-  } catch (error) {
-    console.error('Erreur lors de la requête:', error);
-  }
-});
+  });
+}
+
