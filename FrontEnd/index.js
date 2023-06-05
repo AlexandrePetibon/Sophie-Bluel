@@ -1,9 +1,11 @@
-//Etape 1 : Création de la page de présentation des travaux
+// Etape 1 : Création de la page de présentation des travaux
 
-//Rangement des constantes et/ou variables
-const gallery = document.querySelector("#gallery");
+const gallery = document.querySelector("#gallery")
 const btnG = document.querySelector("#buttonG");
 const gallerieTous = document.querySelectorAll("#gallery > div");
+const btn = document.getElementsByClassName("button");
+
+// Création du bouton générique "Tous"
 
 const buttonT = document.createElement("button");
 buttonT.setAttribute("categoryId", "0");
@@ -12,8 +14,9 @@ buttonT.setAttribute("class", "button");
 buttonT.addEventListener("click", () => {
   gallerieTous.forEach((div) => (div.style.display = "block"));
 });
-
 btnG.appendChild(buttonT);
+
+// Création des boutons générés en JS
 
 async function button() {
   const dataButton = await categories();
@@ -25,16 +28,11 @@ async function button() {
     btnSite.setAttribute("categoryId", `${btn.id}`);
     btnG.appendChild(btnSite);
   });
-  //console.log(dataButton);
 }
 
-//Création du bouton générique "Tous"
+button();
 
-const btn = document.getElementsByClassName("button");
-
-console.log(btn);
-
-//Appel de l'API
+// Appel de l'API
 async function works() {
   const response = await fetch(
     "http://" + window.location.hostname + ":5678/api/works"
@@ -52,7 +50,8 @@ async function categories() {
   return dataCategories;
 }
 
-//Mise en place des fonctions
+// Affichage des projets dans l'interface
+
 async function projet() {
   const dataProjetAPI = await works();
   dataProjetAPI.forEach((galleryImg) => {
@@ -66,6 +65,10 @@ async function projet() {
     gallery.appendChild(imgProjet);
   });
 }
+
+projet();
+
+// Mise en place du tri sur l'inteface (en dehors du bouton "Tous")
 
 async function filtreTravaux() {
   const dataFiltreTravaux = await works();
@@ -97,19 +100,15 @@ async function filtreTravaux() {
   }
 }
 
-//Appel des fonctions
-projet();
 filtreTravaux();
-button();
 
-//Etape 3 : Ajout de la modale
+// Etape 3 : Ajout de la modale
 
-// utiliser display none et block pour le login
+// Affichage de l'interface en mode login / logout
 
 const banner = document.querySelector(".mode-edition");
 const modifierUn = document.querySelector(".modifier1");
 const modifierDeux = document.querySelector(".minibloch2");
-const loginButton = document.querySelector("#login-button");
 const logInOut = document.querySelector(".log-in-out");
 const link = document.querySelector("#link");
 
@@ -135,6 +134,8 @@ function editMode() {
 }
 
 editMode();
+
+// Mise en place des modals
 
 let modal = null;
 let previousModal = null;
@@ -168,6 +169,16 @@ const closeModal = function (e) {
     modal = previousModal;
     previousModal = null;
   }
+  modal.style.display = "none";
+  modal.removeEventListener("click", closeModal);
+  modal
+    .querySelector(".js-close-modal")
+    .removeEventListener("click", closeModal);
+  modal
+    .querySelector(".js-modal-stop")
+    .removeEventListener("click", stopPropagation);
+  modal = previousModal;
+  previousModal = null;
 };
 
 const stopPropagation = function (e) {
@@ -181,6 +192,8 @@ document.querySelectorAll(".js-modal").forEach((a) => {
 document.querySelectorAll(".js-modal2").forEach((a) => {
   a.addEventListener("click", openModal);
 });
+
+// Modal1 remplissage
 
 const galleryModal = document.querySelector("#gallery-modal");
 
@@ -210,7 +223,7 @@ async function projetModal() {
     imgContainer.appendChild(arrowFourBox);
     imgProjet.appendChild(imgContainer);
     imgProjet.appendChild(titleEditer);
-   trashIconBox.setAttribute("id", galleryImgModal.id);
+    trashIconBox.setAttribute("id", galleryImgModal.id);
     console.log(galleryImgModal.id);
     galleryModal.appendChild(imgProjet);
     imgContainer.className = "img-container";
@@ -219,6 +232,8 @@ async function projetModal() {
 }
 
 projetModal();
+
+// Alternance Modal1 et Modal2
 
 const modalUno = document.querySelector("#modal");
 const modalDue = document.querySelector("#modal2");
@@ -232,6 +247,17 @@ function modalDeux() {
 }
 
 modalDeux();
+
+// Retour en arrière de Modal 2 à Modal1
+
+const arrowLeft = document.querySelector(".fa-arrow-left");
+
+arrowLeft.addEventListener("click", function () {
+  modalDue.style.display = "none";
+  modalUno.style.display = "flex";
+});
+
+// Mise en place de la liste déroulante pour le choix de Catégorie Modal2
 
 const listeDeroul = document.querySelector("select");
 
@@ -247,12 +273,7 @@ async function modalDeuxCategorie() {
 
 modalDeuxCategorie();
 
-const arrowLeft = document.querySelector(".fa-arrow-left");
-
-arrowLeft.addEventListener("click", function () {
-  modalDue.style.display = "none";
-  modalUno.style.display = "flex";
-});
+// Ajout de photo dans Modal2
 
 const buttonAjoutPhoto = document.querySelector(".button-ajout-photo");
 const input = document.createElement("input");
@@ -278,6 +299,8 @@ input.addEventListener("change", (event) => {
   };
   reader.readAsDataURL(file);
 });
+
+// Validation bouton dans Modal2 pour poster le projet
 
 const imageInput = document.querySelector(".selected-image");
 console.log(imageInput);
@@ -338,6 +361,7 @@ validerButton.addEventListener("click", async (event) => {
   }
 });
 
+// Suppression d'un porjet dans Modal1
 
 function deleteProject() {
   const deleteProjectDiv = document.querySelectorAll(".box-trash");
@@ -345,7 +369,7 @@ function deleteProject() {
   deleteProjectDiv.forEach((icon) => {
     icon.addEventListener("click", function (event) {
       event.preventDefault();
-      const id = icon.getAttribute('id');
+      const id = icon.getAttribute("id");
       try {
         const response = fetch(`http://localhost:5678/api/works/${id}`, {
           method: "DELETE",

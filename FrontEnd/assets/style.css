@@ -464,13 +464,13 @@ button a {
 	display: inline-block;
   }
   
-  .img-container img {
+.img-container img {
 	display: block;
 	width: 100%;
 	height: auto;
   }
   
-  .box-trash {
+.box-trash {
 	position: absolute;
 	top: 5px;
 	right: 5px;
@@ -478,11 +478,11 @@ button a {
 	display: none;
   }
 
-  .img-container:hover .box-trash {
+.img-container:hover .box-trash {
 	display: block;
   }
 
-  .box-arrow {
+.box-arrow {
 	position: absolute;
 	top: 5px;
 	right: 30px;
@@ -503,7 +503,7 @@ button a {
 	width: 135px; 
   }
 
-  .green-button {
+.green-button {
 	background-color: #1D6154;
 	color: white;
   }
