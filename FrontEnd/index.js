@@ -359,6 +359,9 @@ validerButton.addEventListener("click", async (event) => {
       console.error("Erreur lors de la requête:", error);
     }
   }
+  else {
+    alert('Veuillez remplir tous les champs');
+  }
 });
 
 // Suppression d'un porjet dans Modal1
